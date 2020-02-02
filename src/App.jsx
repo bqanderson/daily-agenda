@@ -1,18 +1,18 @@
-import React from 'react';
-import { Button } from 'mdbreact'
-import logo from './logo.png';
+import React, { Component } from 'react'
+import { MDBContainer, MDBRow, MDBCol } from 'mdbreact'
 
-const App = () => (
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} alt="App Logo" className="App-logo" />
-      <h1 className="App-title">Welcome to your MDB React App</h1>
-    </header>
-    <p className="mb-2">The application is configured and ready to import our components</p>
-    <Button href='https://mdbootstrap.com/react/' target='blank' color='light-blue'>
-      <strong>Check out our docs!</strong>
-    </Button>
-  </div>
-)
+class App extends Component {
+  state = {}
+  render() {
+    return (
+      <MDBContainer>
+        <MDBRow>
+          <MDBCol md='9'>Left Column</MDBCol>
+          <MDBCol md='3'>Right Column</MDBCol>
+        </MDBRow>
+      </MDBContainer>
+    )
+  }
+}
 
-export default App;
+export default App
