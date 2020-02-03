@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { MDBContainer, MDBRow, MDBCol } from 'mdbreact'
+import React, { Component, Fragment } from 'react'
+import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact'
 
-import Event from './components/Event'
+import { Event, EventModal, DailySchedule } from './components'
 
 class App extends Component {
   constructor(props) {
@@ -35,30 +35,72 @@ class App extends Component {
     }
   }
 
+  addEvent = () => {
+    let newArray = [...this.state.events]
+    newArray.push({
+      id: newArray.length ? newArray[newArray.length - 1].id + 1 : 1,
+      time: this.state.time,
+      title: this.state.title,
+      location: this.state.location,
+      description: this.state.description,
+      value: this.var > 5 ? 'Its grater than 5' : 'Its lower or equal to 5',
+    })
+    this.setState({ events: newArray })
+    this.setState({
+      time: '',
+      title: '',
+      location: '',
+      description: '',
+    })
+  }
+
+  handleInputChange = inputName => value =>
+    this.setState({ [inputName]: value })
+
   handleDelete = id => {
     const events = this.state.events.filter(e => e.id !== id)
     this.setState({ events })
   }
 
+  toggleModal = () => this.setState({ modal: !this.state.modal })
+
   render() {
+    const { events, modal } = this.state
     return (
-      <MDBContainer>
-        <MDBRow>
-          <MDBCol md='9' className='mb-r'>
-            <h2 className='text-uppercase my-3'>Today:</h2>
-            <div id='schedule-items'>
-              {this.state.events.map(event => (
-                <Event
-                  key={event.id}
-                  event={event}
-                  onDelete={this.handleDelete}
-                />
-              ))}
-            </div>
-          </MDBCol>
-          <MDBCol md='3' />
-        </MDBRow>
-      </MDBContainer>
+      <Fragment>
+        <MDBContainer>
+          <MDBRow>
+            <MDBCol md='9' className='mb-r'>
+              <h2 className='text-uppercase my-3'>Today:</h2>
+              <div id='schedule-items'>
+                {events.map(event => (
+                  <Event
+                    key={event.id}
+                    event={event}
+                    onDelete={this.handleDelete}
+                  />
+                ))}
+              </div>
+              <MDBRow className='mb-4'>
+                <MDBCol xl='3' md='6' className='mx-auto text-center'>
+                  <MDBBtn color='info' rounded onClick={this.toggleModal}>
+                    Add Event
+                  </MDBBtn>
+                </MDBCol>
+              </MDBRow>
+            </MDBCol>
+            <MDBCol md='3'>
+              <DailySchedule events={events.length} />
+            </MDBCol>
+          </MDBRow>
+        </MDBContainer>
+        <EventModal
+          isOpen={modal}
+          onInputChange={this.handleInputChange}
+          addEvent={this.addEvent}
+          toggleModal={this.toggleModal}
+        />
+      </Fragment>
     )
   }
 }

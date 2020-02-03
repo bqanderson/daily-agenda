@@ -14,21 +14,21 @@ const Event = ({ event, onDelete }) => {
             color='danger'
             className='ml-2 float-right'
             onClick={() => onDelete(id)}
-          />
+          >
+            &times;
+          </MDBBadge>
           <h6 className='mt-0 font-weight-bold'>{title}</h6>
           <hr className='hr-bold my-2' />
-          {location && (
-            <Fragment>
-              <p className='font-smaller mb-0'>
-                <MDBIcon icon='location-arrow' /> {location}
-              </p>
-            </Fragment>
-          )}
+          {location ? (
+            <p className='font-smaller mb-0'>
+              <MDBIcon icon='location-arrow' /> {location}
+            </p>
+          ) : null}
         </div>
       </div>
-      {description && (
+      {description ? (
         <p className='p-2 mb-4 blue-grey lighten-5'>{description}</p>
-      )}
+      ) : null}
     </Fragment>
   )
 }
