@@ -26,7 +26,7 @@ const EventModal = ({ isOpen, toggleModal, onInputChange, addEvent }) => (
           hint='12:30'
           group
           type='text'
-          // getValue={onInputChange('time')}
+          getValue={onInputChange('time')}
         />
         <MDBInput
           name='title'
@@ -35,7 +35,7 @@ const EventModal = ({ isOpen, toggleModal, onInputChange, addEvent }) => (
           hint='Briefing'
           group
           type='text'
-          // getValue={onInputChange('title')}
+          getValue={onInputChange('title')}
         />
         <MDBInput
           name='location'
@@ -43,7 +43,7 @@ const EventModal = ({ isOpen, toggleModal, onInputChange, addEvent }) => (
           icon='map'
           group
           type='text'
-          // getValue={onInputChange('location')}
+          getValue={onInputChange('location')}
         />
         <MDBInput
           name='description'
@@ -51,17 +51,17 @@ const EventModal = ({ isOpen, toggleModal, onInputChange, addEvent }) => (
           icon='sticky-note'
           group
           type='textarea'
-          // getValue={onInputChange('description')}
+          getValue={onInputChange('description')}
         />
       </form>
     </MDBModalBody>
     <MDBModalFooter className='justify-content-center'>
       <MDBBtn
         color='info'
-        // onClick={() => {
-        //   toggleModal()
-        //   addEvent()
-        // }}
+        onClick={() => {
+          addEvent()
+          toggleModal()
+        }}
       >
         Add
       </MDBBtn>
